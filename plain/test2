@@ -1,0 +1,22 @@
+this is a test text!
+For many applications the purpose of the search is to find documents which contain a specific word,
+where the position or the number of occurrences are not relevant.
+For example, searching email is such an application, where the query takes on the form “find all email from Joe”.
+For this application, the previous search schemes leaked information, since the server would know the positions of the word
+in the document, or at least the frequency of a word in a doc-ument in case the word order is scrambled. Since we only need to know whether a given document contains a word, we can use the following trick.
+We add a count to each word, which counts how many times that word occurs previously in that document.
+For example, the first occurrence of the word “urgent” is stored as 0,urgent, the second occurrence as 1,urgent, etc. This allows Alice to search for
+The basic scheme provides provable secrecy if the pseudorandom function and the pseudorandom generator are secure.
+By this, we mean that, at each position wheres unknown, the values are indistinguishable from truly random bits for any computationally-bounded adver-sary.
+We formalize the theorem as below.
+We can see that updates in this scheme are easy. For ex-ample, if Alice wants to add a new document into Bob’s data storage, she can simply encrypt it in the appropriate way and instruct Bob to append it to the already-stored ci-phertext.
+Moreover, since the keys can be generated hierar-chically from a master key, the key storage and management is also very convenient: Alice only needs to remember one password, the master key.
+The underlying technique of embedding information in pseudorandom bit
+streams may also be of independent in-terest:
+we speculate that this simple trick might prove useful for other applications, too.
+y version of their scheme is based partly on techniques derived from this paper.
+Related Work. For an index to be ind-cka secure, two encrypted documents of equal size must have indexes that appear to contain the same number of keywords. As Chang and Mitzenmacher [10] observe, this model allows for indexes that still leak some information,
+namely the approximate number of tokens in the document. They propose a stronger model,
+which we call ind-cka, where the indexes for two documents with different numbers of keywords cannot be distinguished.
+On the other hand, we note that the approximate number of words in the document can be deduced from the (public) size of the encrypted document. Extending our techniques, Chang and Mitzenmacher [10] developed two ind-cka secure index constructions using pre-built dictionaries. The price they pay for this extra security is threefold
+1. Computationally less efficient: For example

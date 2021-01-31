@@ -14,7 +14,8 @@ public class SearchMethod {
     /** 处理关键词 */
     public static String optWord(String word){
         String str = word;
-        for (int i = 0; i < 32-word.length();i++){
+        //TODO 处理过长的单词
+        for (int i = 0; i < 32 - word.length();i++){
             str = str + ".";
         }
         //System.out.println("str: " + str);
@@ -40,6 +41,7 @@ public class SearchMethod {
                 String counter = HexUtil.lengFill(24,count,"0");
                 //计算E(Wi)
                 String Ewi = optWord(word);
+                //System.out.println("Ewi: " + Ewi);
                 //计算流密码
                 byte[] streamCipher = EncUtil.genStreamCipher(STREAM_CIPHER_KEY, NONCE, counter, PLAINTEXT);
                 //计算Si、Fi(Si)，得Ti
@@ -47,6 +49,7 @@ public class SearchMethod {
                 byte[] FiSibyte = EncUtil.aesEncrypt(ENCRYPTION_KEY,streamCipher,PLAINTEXT);
                 String FiSi = HexUtil.byteToHex(FiSibyte);
                 String Ti = Si + FiSi;
+                //System.out.println("Ti: " + Ti);
                 //异或计算E（Wi）、Ti得结果
                 char[] result = HexUtil.XOR(Ewi,Ti);
                 //将结果写入文件
