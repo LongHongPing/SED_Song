@@ -40,7 +40,7 @@ public class FileUtil {
         Matcher matcher = regex.matcher(content);
         List<String> words = new ArrayList<>();
         while (matcher.find()){
-            words.add(matcher.group());
+            words.add(matcher.group().toLowerCase());
         }
         return words;
     }

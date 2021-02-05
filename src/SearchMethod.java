@@ -11,6 +11,7 @@ public class SearchMethod {
     private static String ENCRYPTION_KEY = "ponmlkjihgfedcba";
     private static String PLAINTEXT = "This is a testes";
 
+    public static EncUtil encUtil = EncUtil.getInstance();
     /** 处理关键词 */
     public static String optWord(String word){
         String str = word;
@@ -19,7 +20,7 @@ public class SearchMethod {
             str = str + ".";
         }
         //System.out.println("str: " + str);
-        byte[] wordByte = EncUtil.aesEncrypt(ENCRYPTION_KEY,str,PLAINTEXT);
+        byte[] wordByte = encUtil.aesEncrypt(ENCRYPTION_KEY,str,PLAINTEXT);
         return HexUtil.byteToHex(wordByte);
     }
     /** 加密文件 */
@@ -43,10 +44,10 @@ public class SearchMethod {
                 String Ewi = optWord(word);
                 //System.out.println("Ewi: " + Ewi);
                 //计算流密码
-                byte[] streamCipher = EncUtil.genStreamCipher(STREAM_CIPHER_KEY, NONCE, counter, PLAINTEXT);
+                byte[] streamCipher = encUtil.genStreamCipher(STREAM_CIPHER_KEY, NONCE, counter, PLAINTEXT);
                 //计算Si、Fi(Si)，得Ti
                 String Si = HexUtil.byteToHex(streamCipher);
-                byte[] FiSibyte = EncUtil.aesEncrypt(ENCRYPTION_KEY,streamCipher,PLAINTEXT);
+                byte[] FiSibyte = encUtil.aesEncrypt(ENCRYPTION_KEY,streamCipher,PLAINTEXT);
                 String FiSi = HexUtil.byteToHex(FiSibyte);
                 String Ti = Si + FiSi;
                 //System.out.println("Ti: " + Ti);
@@ -65,7 +66,7 @@ public class SearchMethod {
         //获取所有密文文件
         File[] files = FileUtil.getFiles("encry/");
         //处理关键词
-        String cipherSearch = optWord(keyword);
+        String cipherSearch = optWord(keyword.toLowerCase());
         //在所有密文中查找
         for (File file : files) {
             flag = false;
@@ -82,7 +83,7 @@ public class SearchMethod {
                 String Si = TiStr.substring(0,TiStr.length() / 2);
                 String FiSi = TiStr.substring(TiStr.length() / 2);
                 //处理Si、FiSi，进行匹配
-                byte[] cipherSi = EncUtil.aesEncrypt(ENCRYPTION_KEY,HexUtil.hexToByte(Si),PLAINTEXT);
+                byte[] cipherSi = encUtil.aesEncrypt(ENCRYPTION_KEY,HexUtil.hexToByte(Si),PLAINTEXT);
                 String lowSi = HexUtil.byteToHex(cipherSi).toLowerCase();
                 if(lowSi.equals(FiSi)){
                     flag = true;

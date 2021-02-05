@@ -4,6 +4,21 @@ import javax.crypto.spec.SecretKeySpec;
 
 /** 加密工具类 */
 public class EncUtil {
+    public static EncUtil encUtil;
+    /** 懒汉式单例 双重锁*/
+    private EncUtil(){
+
+    }
+    public static EncUtil getInstance(){
+        if(encUtil == null){
+            synchronized (EncUtil.class){
+                if(encUtil == null){
+                    encUtil = new EncUtil();
+                }
+            }
+        }
+        return encUtil;
+    }
     /** 生成流加密 */
     public static byte[] genStreamCipher(String key,String NONCE,String counter,String target){
         try {

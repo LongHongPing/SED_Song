@@ -9,7 +9,7 @@ public class HexUtil {
         }
         return counter;
     }
-    /** 将十六进制数据转换为字节数据 */
+    /** 将十六进制数据转换为二进制 */
     public static byte[] hexToByte(String hex){
         if (hex == null || hex.trim().equals("")){
             return new byte[0];
@@ -21,7 +21,7 @@ public class HexUtil {
         }
         return bytes;
     }
-    /** 将字节数据转换为十六进制数据 */
+    /** 将二进制转换为十六进制数据 */
     public static String byteToHex(byte[] byteArray) {
         if (byteArray == null){
             return null;
